@@ -136,7 +136,7 @@ const Registration: React.FC = () => {
                   id="firstName"
                   {...register("firstName")}
                   name="entry.521128088"
-                  className="bg-white xl:p-4 p-2 rounded-xl text-lg md:pl-[50px] pl-[30px]"
+                  className="bg-white xl:p-4 xl:pl-[50px] p-2 rounded-xl text-lg md:pl-[50px] pl-[30px]"
                 />
                 {errors.firstName && (
                   <span className="text-red-500 mx-2 px-2 text-sm">
@@ -162,7 +162,7 @@ const Registration: React.FC = () => {
                   id="lastName"
                   {...register("lastName")}
                   name="entry.1938341443"
-                  className="bg-white xl:p-4 p-2 rounded-xl text-lg md:pl-[50px] pl-[30px]"
+                  className="bg-white xl:p-4 xl:pl-[50px] p-2 rounded-xl text-lg md:pl-[50px] pl-[30px]"
                 />
                 {errors.lastName && (
                   <span className="text-red-500 mx-2 px-2 text-sm">
@@ -188,7 +188,7 @@ const Registration: React.FC = () => {
                 id="email"
                 {...register("email")}
                 name="entry.2027588860"
-                className="bg-white xl:p-4 p-2 rounded-xl text-lg md:pl-[50px] pl-[30px]"
+                className="bg-white xl:p-4 xl:pl-[50px] p-2 rounded-xl text-lg md:pl-[50px] pl-[30px]"
               />
               {errors.email && (
                 <span className="text-red-500 mx-2 px-2 text-sm">
@@ -215,7 +215,7 @@ const Registration: React.FC = () => {
                   id="phone"
                   {...register("phone")}
                   name="entry.1956564773"
-                  className="bg-white xl:p-4 p-2 rounded-xl text-lg md:pl-[50px] pl-[30px]"
+                  className="bg-white xl:p-4 xl:pl-[50px] p-2 rounded-xl text-lg md:pl-[50px] pl-[30px]"
                 />
                 {errors.phone && (
                   <span className="text-red-500 mx-2 px-2 text-sm">
@@ -240,7 +240,7 @@ const Registration: React.FC = () => {
                   id="whatsapp"
                   {...register("whatsapp")}
                   name="entry.922164047"
-                  className="bg-white xl:p-4 p-2 rounded-xl text-lg md:pl-[50px] pl-[30px]"
+                  className="bg-white xl:p-4 xl:pl-[50px] p-2 rounded-xl text-lg md:pl-[50px] pl-[30px]"
                 />
                 {errors.whatsapp && (
                   <span className="text-red-500 mx-2 px-2 text-sm">
@@ -274,7 +274,7 @@ const Registration: React.FC = () => {
 
             <button
               type="submit"
-              className="mt-5 bg-yellow w-fit m-auto text-blue montserrat font-bold text-2xl py-2 px-8 rounded-xl flex gap-4 justify-center items-center"
+              className="hover:scale-105 active:scale-95 transition-all mt-5 bg-yellow w-fit m-auto text-blue montserrat font-bold text-2xl py-2 px-8 rounded-xl flex gap-4 justify-center items-center"
             >
               Next <img src={snorlax} alt="" />
             </button>
