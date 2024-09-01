@@ -2,7 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z, ZodType } from "zod";
 import ash from "../assets/ash.svg";
-import pikachu from "../assets/pikachu.svg";
+// import pikachu from "../assets/pikachu.svg";
 import snorlax from "../assets/snorlax.svg";
 import pokeball from "../assets/pokeball.svg";
 
@@ -32,7 +32,7 @@ const schema: ZodType<formData> = z.object({
   isSame: z.boolean(),
 });
 
-const Registration = () => {
+const Registration: React.FC = () => {
   const {
     register,
     handleSubmit,
@@ -42,24 +42,10 @@ const Registration = () => {
   const submitForm = async (data: formData) => {
     console.log(data);
 
-    const entryMap = {
-      firstName: "entry.521128088",
-      lastName: "entry.1938341443",
-      email: "entry.2027588860",
-      phone: "entry.1956564773",
-      whatsapp: "entry.922164047",
-      isSame: "entry.1669604705",
-    };
-
-    // const params = new URLSearchParams();
-    // for (const [key, value] of Object.entries(data)) {
-    //    // Convert value to string
-    // }
-    // const formData = new FormData();
-
+    const formData = new FormData();
     const params = new URLSearchParams();
-    for (const [key, value] of Object.entries(data)) {
-      params.append(entryMap[key], value.toString());
+    for (const [key, value] of Object.entries(formData)) {
+      params.append(key, value);
     }
 
     fetch(
@@ -67,7 +53,7 @@ const Registration = () => {
       {
         method: "POST",
         mode: "no-cors",
-      }
+      } // this posts the data to google sheets linked with the google form but the values passed are empty
     )
       .then((response) => {
         console.log(response);
@@ -84,65 +70,73 @@ const Registration = () => {
       <img
         src={ash}
         alt=""
-        className="size-[500px] absolute bottom-0 left-1/2 -translate-x-1/2 z-10"
+        className="hidden xl:block size-[500px] absolute -translate-x-1/2 bottom-0 left-1/2  z-10"
       />
-      <div className="w-1/2 bg-yellow flex justify-center items-center relative">
+      <div className="w-1/2 bg-yellow md:flex justify-center items-center relative hidden">
+        <img
+          src={ash}
+          alt=""
+          className="hidden xl:hidden md:block size-[500px] absolute bottom-0 left-1/2  z-10"
+        />
+
         <div className="absolute p-8 top-0 right-0 solid text-blue text-3xl">
           xxx
         </div>
         <div className="text-center">
-          <div className="hollow font-bold text-blue text-[160px] flex flex-nowrap">
+          <div className="hollow font-bold text-blue xl:text-[160px] text-8xl flex flex-nowrap m-auto px-14 xl:px-0 w-fit">
             P
             <span className="relative">
               o
               <img
                 src={pokeball}
                 alt=""
-                className="absolute top-[74px] left-0 pokeballText"
+                className="absolute xl:top-[40px] top-[23px] xl:left-0 -left-[3px] pokeballText"
               />
             </span>
             keM
             <span className="relative">L</span>
           </div>
           <div>
-            <div className="bowlby text-blue text-3xl">
+            <div className="bowlby text-blue xl:text-3xl xl:m-0 mt-4 text-xl">
               Sep XX 2024, 10 am Onwards
             </div>
-            <div className="bowlby text-blue text-3xl">Campus X Auditorium</div>
+            <div className="bowlby text-blue xl:text-3xl text-xl">
+              Campus X Auditorium
+            </div>
           </div>
         </div>
         <div className="absolute p-8 bottom-0 left-0 solid text-blue text-3xl">
           xxx
         </div>
       </div>
-      <div className="w-1/2 bg-blue p-12">
-        <h1 className="text-white solid text-7xl m-auto w-fit my-24">
+      <div className="xl:w-1/2 w-full bg-blue xl:p-12 p-4">
+        <h1 className="text-white solid xl:text-7xl text-4xl m-auto w-fit xl:my-12 my-10 text-center">
           Register Now
         </h1>
         <div className="flex flex-col justify-center items-center h-max">
           <form
-            className="flex flex-col gap-7 montserrat"
+            className="flex flex-col xl:gap-7 gap-2 montserrat z-20"
             onSubmit={handleSubmit(submitForm)}
           >
-            <div className="flex gap-14 w-full">
-              <div className="flex flex-col w-1/2 relative">
+            <div className="flex flex-col xl:flex-row xl:gap-14 gap-2 w-full">
+              <div className="flex flex-col xl:w-1/2 w-full relative">
                 <label
                   htmlFor="firstName"
-                  className="text-white text-xl font-bold"
+                  className="text-white xl:text-xl text-base font-bold"
                 >
                   First Name
                 </label>
                 <img
                   src={pokeball}
                   alt=""
-                  className="size-16 absolute top-[26px] -left-[23px]"
+                  className="md:size-12 xl:size-16 size-11 absolute md:top-[22px] xl:top-[26px] top-[24px]  md:-left-[17px] xl:-left-[23px] -left-[15px]"
                 />
                 <input
                   type="text"
                   id="firstName"
                   {...register("firstName")}
                   name="entry.521128088"
-                  className="bg-white p-4 rounded-xl text-lg pl-[50px]"
+                  className="bg-white xl:p-4 p-2 rounded-xl text-lg md:pl-[50px] pl-[30px]"
                 />
                 {errors.firstName && (
                   <span className="text-red-500 mx-2 px-2 text-sm">
@@ -151,24 +145,24 @@ const Registration = () => {
                 )}
               </div>
 
-              <div className="flex flex-col w-1/2 relative">
+              <div className="flex flex-col xl:w-1/2 w-full relative">
                 <label
                   htmlFor="lastName"
-                  className="text-white text-xl font-bold"
+                  className="text-white xl:text-xl text-base font-bold"
                 >
                   Last Name
                 </label>
                 <img
                   src={pokeball}
                   alt=""
-                  className="size-16 absolute top-[26px] -left-[23px]"
+                  className="md:size-12 xl:size-16 size-11 absolute md:top-[22px] xl:top-[26px] top-[24px]  md:-left-[17px] xl:-left-[23px] -left-[15px]"
                 />
                 <input
                   type="text"
                   id="lastName"
                   {...register("lastName")}
                   name="entry.1938341443"
-                  className="bg-white p-4 rounded-xl text-lg pl-[50px]"
+                  className="bg-white xl:p-4 p-2 rounded-xl text-lg md:pl-[50px] pl-[30px]"
                 />
                 {errors.lastName && (
                   <span className="text-red-500 mx-2 px-2 text-sm">
@@ -178,20 +172,23 @@ const Registration = () => {
               </div>
             </div>
             <div className="flex flex-col relative">
-              <label htmlFor="email" className="text-white text-xl font-bold">
+              <label
+                htmlFor="email"
+                className="text-white xl:text-xl text-base font-bold"
+              >
                 Email (Personal)
               </label>
               <img
                 src={pokeball}
                 alt=""
-                className="size-16 absolute top-[26px] -left-[23px]"
+                className="md:size-12 xl:size-16 size-11 absolute md:top-[22px] xl:top-[26px] top-[24px]  md:-left-[17px] xl:-left-[23px] -left-[15px]"
               />
               <input
                 type="email"
                 id="email"
                 {...register("email")}
                 name="entry.2027588860"
-                className="bg-white p-4 rounded-xl text-lg pl-[50px]"
+                className="bg-white xl:p-4 p-2 rounded-xl text-lg md:pl-[50px] pl-[30px]"
               />
               {errors.email && (
                 <span className="text-red-500 mx-2 px-2 text-sm">
@@ -200,22 +197,25 @@ const Registration = () => {
               )}
             </div>
 
-            <div className="flex gap-14 w-full">
-              <div className="flex flex-col w-1/2 relative">
-                <label htmlFor="phone" className="text-white text-xl font-bold">
+            <div className="flex flex-col xl:flex-row md:gap-6 xl:gap-14 gap-2 w-full">
+              <div className="flex flex-col xl:w-1/2 w-full relative">
+                <label
+                  htmlFor="phone"
+                  className="text-white xl:text-xl text-base font-bold"
+                >
                   Phone
                 </label>
                 <img
                   src={pokeball}
                   alt=""
-                  className="size-16 absolute top-[26px] -left-[23px]"
+                  className="md:size-12 xl:size-16 size-11 absolute md:top-[22px] xl:top-[26px] top-[24px]  md:-left-[17px] xl:-left-[23px] -left-[15px]"
                 />
                 <input
                   type="tel"
                   id="phone"
                   {...register("phone")}
                   name="entry.1956564773"
-                  className="bg-white p-4 rounded-xl text-lg pl-[50px]"
+                  className="bg-white xl:p-4 p-2 rounded-xl text-lg md:pl-[50px] pl-[30px]"
                 />
                 {errors.phone && (
                   <span className="text-red-500 mx-2 px-2 text-sm">
@@ -223,24 +223,24 @@ const Registration = () => {
                   </span>
                 )}
               </div>
-              <div className="flex flex-col w-1/2 relative">
+              <div className="flex flex-col xl:w-1/2 w-full relative">
                 <label
                   htmlFor="whatsapp"
-                  className="text-white text-xl font-bold"
+                  className="text-white xl:text-xl text-base font-bold"
                 >
                   Whatsapp
                 </label>
                 <img
                   src={pokeball}
                   alt=""
-                  className="size-16 absolute top-[26px] -left-[23px]"
+                  className="md:size-12 xl:size-16 size-11 absolute md:top-[22px] xl:top-[26px] top-[24px]  md:-left-[17px] xl:-left-[23px] -left-[15px]"
                 />
                 <input
                   type="tel"
                   id="whatsapp"
                   {...register("whatsapp")}
                   name="entry.922164047"
-                  className="bg-white p-4 rounded-xl text-lg pl-[50px]"
+                  className="bg-white xl:p-4 p-2 rounded-xl text-lg md:pl-[50px] pl-[30px]"
                 />
                 {errors.whatsapp && (
                   <span className="text-red-500 mx-2 px-2 text-sm">
@@ -250,18 +250,18 @@ const Registration = () => {
               </div>
             </div>
 
-            <div>
+            <div className="mt-2 z-20">
               <input
                 type="checkbox"
                 id="isSame"
                 {...register("isSame")}
                 name="entry.1669604705"
-                className="bg-white p-4 rounded-xl text-lg pl-[50px]"
+                className="bg-white xl:p-4 p-2 rounded-xl text-lg pl-[50px]"
                 value="Yes"
               />
               <label
                 htmlFor="isSame"
-                className="text-white text-xl font-bold ml-5"
+                className="text-white xl:text-xl text-sm font-bold ml-5"
               >
                 Phone Number is same as Whatsapp Number?
               </label>
@@ -274,7 +274,7 @@ const Registration = () => {
 
             <button
               type="submit"
-              className="bg-yellow w-fit m-auto text-blue montserrat font-bold text-2xl py-2 px-8 rounded-xl flex gap-4 justify-center items-center"
+              className="mt-5 bg-yellow w-fit m-auto text-blue montserrat font-bold text-2xl py-2 px-8 rounded-xl flex gap-4 justify-center items-center"
             >
               Next <img src={snorlax} alt="" />
             </button>

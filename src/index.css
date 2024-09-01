@@ -29,3 +29,7 @@
 .pokeballText {
   scale: 2;
 }
+
+.typography {
+  font-size: clamp(1rem, 0.3043rem + 3.4783, 3rem);
+}
