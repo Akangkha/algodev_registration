@@ -29,7 +29,7 @@ const PokeballInput: React.FC<PokeballInputProps> = ({
   // const {register,} = useForm();
   console.log(register);
   return (
-    <div className="flex flex-col relative">
+    <div className="flex flex-col relative w-full">
       <label
         htmlFor={name}
         className="text-white xl:text-xl text-base font-bold"

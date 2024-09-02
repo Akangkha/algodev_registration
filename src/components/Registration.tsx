@@ -127,13 +127,13 @@ const Registration: React.FC = () => {
         <img
           src={ash}
           alt=""
-          className="hidden h-1/2 xl:hidden md:block size-[500px] absolute bottom-0 left-1/2  z-10"
+          className="hidden h-1/2 xl:hidden md:block size-[500px] absolute bottom-0 left-1/2 z-10"
         />
 
         <div className="absolute p-8 top-0 right-0 solid text-blue text-3xl">
           xxx
         </div>
-        <div className="text-center">
+        <div className="text-center flex flex-col md:gap-16">
           <div className="hollow font-bold text-blue xl:text-[160px] text-8xl flex flex-nowrap m-auto px-14 xl:px-0 w-fit">
             P
             <span className="relative">
@@ -141,7 +141,7 @@ const Registration: React.FC = () => {
               <img
                 src={pokeball}
                 alt=""
-                className="absolute xl:top-[40px] top-[23px] xl:left-0 -left-[3px] pokeballText"
+                className="absolute xl:top-[90px] top-[55px] xl:-left-[5px] -left-[3px] pokeballText"
               />
             </span>
             keDev
@@ -160,7 +160,7 @@ const Registration: React.FC = () => {
         </div>
       </div>
       <div className="md:w-1/2 w-full bg-blue xl:p-12 p-4">
-        <div className="text-center md:hidden">
+        <div className="text-center md:hidden flex flex-col gap-4">
           <div className="solid mt-6 text-yellow text-7xl flex flex-nowrap m-auto w-fit">
             P
             <span className="relative">
@@ -168,7 +168,7 @@ const Registration: React.FC = () => {
               <img
                 src={pokeball}
                 alt=""
-                className="absolute xl:top-[40px] top-[15px] xl:left-0 -left-[3px] pokeballText"
+                className="absolute top-[42px] -left-[3px] pokeballText"
               />
             </span>
             keDev
@@ -190,7 +190,7 @@ const Registration: React.FC = () => {
             className="flex flex-col xl:px-7 md:pl-14 xl:pl-0 xl:gap-3 gap-2 montserrat z-20 w-4/5"
             onSubmit={handleSubmit(submitForm)}
           >
-            <div className="flex flex-col xl:flex-row xl:gap-8 gap-2 w-full">
+            <div className="flex flex-col xl:flex-row xl:gap-8 gap-2 w-full xl:justify-between">
               <PokeballInput
                 name="firstName"
                 label="First Name"
@@ -222,7 +222,7 @@ const Registration: React.FC = () => {
               handleBlur={handleBlur}
             />
 
-            <div className="flex flex-col xl:flex-row md:gap-6 xl:gap-8 gap-2 w-full">
+            <div className="flex flex-col xl:flex-row md:gap-6 xl:gap-8 gap-2 w-full xl:justify-between">
               <PokeballInput
                 name="phone"
                 label="Phone"
@@ -249,7 +249,7 @@ const Registration: React.FC = () => {
                   }
                 }}
               /> */}
-              <div className="flex flex-col relative">
+              <div className="flex flex-col relative w-full">
                 <label
                   htmlFor="whatsapp"
                   className="text-white xl:text-xl text-base font-bold"
