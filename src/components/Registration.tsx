@@ -44,6 +44,9 @@ const schema: ZodType<formData> = z.object({
 });
 
 const Registration: React.FC = () => {
+  const date = "XX";
+  const campus = "X";
+
   const [phoneValue, setPhoneValue] = useState("");
   const [focusedField, setFocusedField] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -111,7 +114,7 @@ const Registration: React.FC = () => {
           onClick={() => setIsSubmitted(false)}
         >
           <div className="bg-white p-4 rounded-xl text-lg">
-            Form submitted successfully!
+            Registration Successful!
           </div>
         </div>
       )}
@@ -145,10 +148,10 @@ const Registration: React.FC = () => {
           </div>
           <div>
             <div className="bowlby text-blue xl:text-3xl xl:m-0 mt-4 text-xl">
-              Sep XX 2024, 10 am Onwards
+              Sep {date} 2024, 10 am Onwards
             </div>
             <div className="bowlby text-blue xl:text-3xl text-xl">
-              Campus X Auditorium
+              Campus {campus} Auditorium
             </div>
           </div>
         </div>
@@ -172,10 +175,10 @@ const Registration: React.FC = () => {
           </div>
           <div>
             <div className="bowlby text-yellow mt-4 text-lg">
-              Sep XX 2024, 10 am Onwards
+              Sep {date} 2024, 10 am Onwards
             </div>
             <div className="bowlby text-yellow text-lg">
-              Campus X Auditorium
+              Campus {campus} Auditorium
             </div>
           </div>
         </div>
