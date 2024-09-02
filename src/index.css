@@ -36,8 +36,6 @@
 
 .pokeball {
   display: block;
-  width: 192px;
-  height: 192px;
   background: radial-gradient(
       white 16px,
       black 17px 18px,

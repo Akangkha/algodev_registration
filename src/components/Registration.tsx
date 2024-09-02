@@ -114,10 +114,10 @@ const Registration: React.FC = () => {
     <div className="w-full min-h-screen flex relative">
       {isSubmitted && (
         <div
-          className="fixed z-40 top-0 left-0 w-full h-full bg-black gap-4 cursor-default bg-opacity-50 transition-all flex justify-center items-center"
+          className="fixed z-40 top-0 left-0 w-full h-full flex-col md:flex-row bg-black gap-4 cursor-default bg-opacity-50 transition-all flex justify-center items-center"
           onClick={() => setIsSubmitted(false)}
         >
-          <div className="pokeball"></div>
+          <div className="pokeball w-[192px] h-[192px] "></div>
           <div className="bg-white p-4 rounded-xl text-xl montserrat font-bold">
             Registration Successful!
           </div>
