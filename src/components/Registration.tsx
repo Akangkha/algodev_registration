@@ -33,6 +33,8 @@ const schema: ZodType<formData> = z.object({
   year: z.string({ message: "Year is reqiured" }),
   phone: z
     .string({ message: "Phone number is required" })
+    .min(10, { message: "Enter valid phone number" })
+    .max(10, { message: "Enter valid phone number" })
     .regex(
       /^\s*(?:\+?(\d{1,3}))?([-. (]*(\d{3})[-. )]*)?((\d{3})[-. ]*(\d{2,4})(?:[-.x ]*(\d+))?)\s*$/gm,
       { message: "Enter valid phone number" }
@@ -49,8 +51,8 @@ const Registration: React.FC = () => {
     reset,
   } = useForm<formData>({ resolver: zodResolver(schema), mode: "onChange" });
 
-  const date = "XX";
-  const campus = "X";
+  const date = "8";
+  const location = "14, Seminar Hall";
 
   const [, setPhoneValue] = useState("");
   const [focusedField, setFocusedField] = useState("");
@@ -168,7 +170,7 @@ const Registration: React.FC = () => {
               Sep {date} 2024, 10 am Onwards
             </div>
             <div className="bowlby text-blue xl:text-3xl text-xl">
-              Campus {campus} Auditorium
+              Campus {location}
             </div>
           </div>
         </div>
@@ -194,9 +196,7 @@ const Registration: React.FC = () => {
             <div className="bowlby text-yellow mt-4 text-lg">
               Sep {date} 2024, 10 am Onwards
             </div>
-            <div className="bowlby text-yellow text-lg">
-              Campus {campus} Auditorium
-            </div>
+            <div className="bowlby text-yellow text-lg">Campus {location}</div>
           </div>
         </div>
         <h1 className="text-white solid xl:text-7xl text-4xl m-auto w-fit xl:my-12 my-10 text-center">
