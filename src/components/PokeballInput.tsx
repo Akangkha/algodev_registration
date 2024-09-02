@@ -22,9 +22,9 @@ const PokeballInput: React.FC<PokeballInputProps> = ({
   focusedField,
   handleFocus,
   handleBlur,
-  value,
-  onChange,
-  disabled,
+  // value,
+  // onChange,
+  // disabled,
 }) => {
   // const {register,} = useForm();
   console.log(register);
