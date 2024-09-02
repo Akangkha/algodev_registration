@@ -103,12 +103,14 @@ const Registration: React.FC = () => {
         ) as HTMLFormElement;
         form?.reset();
         reset();
+        setRollNumber("");
       });
     } catch (error) {
       const form = document.getElementById(
         "registrationForm"
       ) as HTMLFormElement;
       form?.reset();
+      setRollNumber("");
       console.error("Error submitting form:", error);
     }
   };
