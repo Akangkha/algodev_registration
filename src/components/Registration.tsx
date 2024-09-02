@@ -118,13 +118,13 @@ const Registration: React.FC = () => {
       <img
         src={ash}
         alt=""
-        className="hidden xl:block size-[500px] absolute -translate-x-1/2 bottom-0 left-1/2 z-10"
+        className="hidden h-1/2 xl:block size-[500px] absolute -translate-x-1/2 bottom-0 left-1/2 z-10"
       />
       <div className="w-1/2 bg-yellow md:flex justify-center items-center relative hidden">
         <img
           src={ash}
           alt=""
-          className="hidden xl:hidden md:block size-[500px] absolute bottom-0 left-1/2  z-10"
+          className="hidden h-1/2 xl:hidden md:block size-[500px] absolute bottom-0 left-1/2  z-10"
         />
 
         <div className="absolute p-8 top-0 right-0 solid text-blue text-3xl">
@@ -162,7 +162,7 @@ const Registration: React.FC = () => {
         </h1>
         <div className="flex flex-col justify-center items-center h-max">
           <form
-            className="flex flex-col xl:px-7 md xl:gap-3 gap-2 montserrat z-20 w-4/5"
+            className="flex flex-col xl:px-7 md:pl-14 xl:pl-0 xl:gap-3 gap-2 montserrat z-20 w-4/5"
             onSubmit={handleSubmit(submitForm)}
           >
             <div className="flex flex-col xl:flex-row xl:gap-8 gap-2 w-full">
