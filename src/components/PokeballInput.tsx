@@ -13,6 +13,7 @@ interface PokeballInputProps {
   value?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   disabled?: boolean;
+  type?: string;
 }
 const PokeballInput: React.FC<PokeballInputProps> = ({
   name,
@@ -22,12 +23,13 @@ const PokeballInput: React.FC<PokeballInputProps> = ({
   focusedField,
   handleFocus,
   handleBlur,
+  type,
   // value,
   // onChange,
   // disabled,
 }) => {
   // const {register,} = useForm();
-  console.log(register);
+  // console.log(register);
   return (
     <div className="flex flex-col relative w-full">
       <label
@@ -45,7 +47,7 @@ const PokeballInput: React.FC<PokeballInputProps> = ({
           }`}
         />
         <input
-          type="text"
+          type={type}
           id={name}
           {...register(name)}
           // value={value}

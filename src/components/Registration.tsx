@@ -11,6 +11,8 @@ import PokeballInput from "./PokeballInput";
 export interface formData {
   firstName: string;
   lastName: string;
+  branch: string;
+  year: string;
   phone: string;
   email: string;
   whatsapp: string;
@@ -28,6 +30,11 @@ const schema: ZodType<formData> = z.object({
   email: z
     .string({ message: "Email is required" })
     .email({ message: "Enter valid email" }),
+  branch: z
+    .string()
+    .max(100, { message: "Branch name must be less than 100 characters" })
+    .min(1, { message: "Branch name is required" }),
+  year: z.string({ message: "Year is reqiured" }),
   phone: z
     .string({ message: "Phone number is required" })
     .regex(
@@ -47,7 +54,7 @@ const Registration: React.FC = () => {
   const date = "XX";
   const campus = "X";
 
-  const [phoneValue, setPhoneValue] = useState("");
+  const [, setPhoneValue] = useState("");
   const [focusedField, setFocusedField] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
 
@@ -61,7 +68,6 @@ const Registration: React.FC = () => {
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
     watch,
     setValue,
@@ -83,6 +89,8 @@ const Registration: React.FC = () => {
       params.append("entry.521128088", String(data.firstName));
       params.append("entry.1938341443", String(data.lastName));
       params.append("entry.2027588860", String(data.email));
+      params.append("entry.1232986415", String(data.branch));
+      params.append("entry.943693434", String(data.year));
       params.append("entry.1956564773", String(data.phone));
       params.append("entry.922164047", String(data.whatsapp));
       // params.append("entry.1669604705", data.isSame ? "true" : "false");
@@ -150,7 +158,7 @@ const Registration: React.FC = () => {
                 className="absolute xl:top-[90px] top-[55px] xl:-left-[5px] -left-[3px] pokeballText"
               />
             </span>
-            keDev
+            k&eacute;Dev
           </div>
           <div className="xl:mt-[4rem] mt-[3rem]">
             <div className="bowlby text-blue xl:text-3xl xl:m-0 mt-4 text-xl">
@@ -199,6 +207,7 @@ const Registration: React.FC = () => {
           >
             <div className="flex flex-col xl:flex-row xl:gap-8 gap-2 w-full xl:justify-between">
               <PokeballInput
+                type="text"
                 name="firstName"
                 label="First Name"
                 register={register}
@@ -209,6 +218,7 @@ const Registration: React.FC = () => {
               />
 
               <PokeballInput
+                type="text"
                 name="lastName"
                 label="Last Name"
                 register={register}
@@ -220,6 +230,7 @@ const Registration: React.FC = () => {
             </div>
 
             <PokeballInput
+              type="text"
               name="email"
               label="Kiit Email"
               register={register}
@@ -228,9 +239,88 @@ const Registration: React.FC = () => {
               handleFocus={handleFocus}
               handleBlur={handleBlur}
             />
+            <div className="flex flex-col xl:flex-row xl:gap-8 gap-2 w-full xl:justify-between">
+              <PokeballInput
+                type="text"
+                name="branch"
+                label="Branch"
+                register={register}
+                errors={errors}
+                focusedField={focusedField}
+                handleFocus={handleFocus}
+                handleBlur={handleBlur}
+              />
+
+              {/* <PokeballInput
+                type="number"
+                name="year"
+                label="Year"
+                register={register}
+                errors={errors}
+                focusedField={focusedField}
+                handleFocus={handleFocus}
+                handleBlur={handleBlur}
+              /> */}
+              <div className="flex flex-col relative w-full text-white">
+                <label
+                  htmlFor="year"
+                  className="text-white xl:text-lg text-base font-bold"
+                >
+                  Year
+                </label>
+                <div className="flex items-center text-xl font-bold py-2 justify-between">
+                  <div className="flex flex-row gap-4">
+                    <input
+                      type="radio"
+                      id="1"
+                      {...register("year")}
+                      value={1}
+                      className="bg-white xl:pl-8 pl-6 p-2 rounded-xl text-lg w-full"
+                    />
+                    <label htmlFor="1">1</label>
+                  </div>
+                  <div className="flex flex-row gap-4">
+                    <input
+                      type="radio"
+                      id="2"
+                      {...register("year")}
+                      value={2}
+                      className="bg-white xl:pl-8 pl-6 p-2 rounded-xl text-lg w-full"
+                    />
+                    <label htmlFor="1">2</label>
+                  </div>
+                  <div className="flex flex-row gap-4">
+                    <input
+                      type="radio"
+                      id="3"
+                      {...register("year")}
+                      value={3}
+                      className="bg-white xl:pl-8 pl-6 p-2 rounded-xl text-lg w-full"
+                    />
+                    <label htmlFor="1">3</label>
+                  </div>
+                  <div className="flex flex-row gap-4">
+                    <input
+                      type="radio"
+                      id="4"
+                      {...register("year")}
+                      value={4}
+                      className="bg-white xl:pl-8 pl-6 p-2 rounded-xl text-lg w-full"
+                    />
+                    <label htmlFor="1">4</label>
+                  </div>
+                </div>
+                {errors["year"] && (
+                  <span className="text-yellow mx-2 px-2 text-sm font-bold">
+                    * {errors["year"].message}
+                  </span>
+                )}
+              </div>
+            </div>
 
             <div className="flex flex-col xl:flex-row md:gap-6 xl:gap-8 gap-2 w-full xl:justify-between">
               <PokeballInput
+                type="tel"
                 name="phone"
                 label="Phone"
                 register={register}
@@ -272,7 +362,7 @@ const Registration: React.FC = () => {
                     }`}
                   />
                   <input
-                    type="text"
+                    type="tel"
                     id="whatsapp"
                     {...register("whatsapp")}
                     disabled={isSame}
