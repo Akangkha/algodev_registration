@@ -92,29 +92,18 @@ const Registration: React.FC = () => {
 
       const googleFormUrl = import.meta.env.VITE_GOOGLE_FORMS_ENDPOINT;
 
-      const response = await fetch(`${googleFormUrl}?${params.toString()}`, {
+      await fetch(`${googleFormUrl}?${params.toString()}`, {
         method: "POST",
         mode: "no-cors",
-      }).then(() => setIsSubmitted(true));
-
-      if (response.ok) {
+      }).then(() => {
+        setIsSubmitted(true);
         console.log("Form submitted successfully!");
         const form = document.getElementById(
           "registrationForm"
         ) as HTMLFormElement;
         form?.reset();
         reset();
-      } else {
-        const form = document.getElementById(
-          "registrationForm"
-        ) as HTMLFormElement;
-        form?.reset();
-        console.error(
-          "Error submitting form:",
-          response.status,
-          response.statusText
-        );
-      }
+      });
     } catch (error) {
       const form = document.getElementById(
         "registrationForm"
