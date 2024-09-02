@@ -127,19 +127,19 @@ const Registration: React.FC = () => {
       <img
         src={ash}
         alt=""
-        className="hidden h-1/2 xl:block size-[500px] absolute -translate-x-1/2 bottom-0 left-1/2 z-10"
+        className="hidden h-3/4 xl:block size-[500px] absolute -translate-x-1/2 bottom-0 left-1/2 z-10"
       />
       <div className="w-1/2 bg-yellow md:flex justify-center items-center relative hidden">
         <img
           src={ash}
           alt=""
-          className="hidden h-1/2 xl:hidden md:block size-[500px] absolute bottom-0 left-1/2 z-10"
+          className="hidden h-[70%] xl:hidden md:block size-[500px] absolute bottom-0 left-1/2 z-10"
         />
 
         <div className="absolute p-8 top-0 right-0 solid text-blue text-3xl">
           xxx
         </div>
-        <div className="text-center flex flex-col md:gap-16">
+        <div className="text-center flex flex-col">
           <div className="hollow font-bold text-blue xl:text-[160px] text-8xl flex flex-nowrap m-auto px-14 xl:px-0 w-fit">
             P
             <span className="relative">
