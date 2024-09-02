@@ -5,7 +5,7 @@ import ash from "../assets/ash.svg";
 // import pikachu from "../assets/pikachu.svg";
 import snorlax from "../assets/snorlax.svg";
 import pokeball from "../assets/pokeball.svg";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PokeballInput from "./PokeballInput";
 
 export interface formData {
@@ -14,7 +14,7 @@ export interface formData {
   phone: string;
   email: string;
   whatsapp: string;
-  isSame?: string;
+  isSame?: boolean;
 }
 const schema: ZodType<formData> = z.object({
   firstName: z
@@ -34,8 +34,13 @@ const schema: ZodType<formData> = z.object({
       /^\s*(?:\+?(\d{1,3}))?([-. (]*(\d{3})[-. )]*)?((\d{3})[-. ]*(\d{2,4})(?:[-.x ]*(\d+))?)\s*$/gm,
       { message: "Enter valid phone number" }
     ),
-  whatsapp: z.string(),
-  isSame: z.string().optional(),
+  whatsapp: z
+    .string({ message: "Whatsapp number is required" })
+    .regex(
+      /^\s*(?:\+?(\d{1,3}))?([-. (]*(\d{3})[-. )]*)?((\d{3})[-. ]*(\d{2,4})(?:[-.x ]*(\d+))?)\s*$/gm,
+      { message: "Enter valid Whatsapp number" }
+    ),
+  isSame: z.boolean().default(false),
 });
 
 const Registration: React.FC = () => {
@@ -56,6 +61,14 @@ const Registration: React.FC = () => {
     watch,
     setValue,
   } = useForm<formData>({ resolver: zodResolver(schema), mode: "onChange" });
+  const isSame = watch("isSame");
+  const phone = watch("phone");
+
+  useEffect(() => {
+    if (isSame) {
+      setValue("whatsapp", phone);
+    }
+  }, [isSame, phone, setValue]);
 
   const submitForm = async (data: formData) => {
     try {
@@ -219,14 +232,15 @@ const Registration: React.FC = () => {
                     type="text"
                     id="whatsapp"
                     {...register("whatsapp")}
-                    value={
-                      watch("isSame") ? phoneValue : watch("whatsapp") || ""
-                    }
-                    onChange={(e) => {
-                      if (!watch("isSame")) {
-                        setValue("whatsapp", e.target.value);
-                      }
-                    }}
+                    disabled={isSame}
+                    // value={
+                    //   watch("isSame") ? phoneValue : watch("whatsapp") || ""
+                    // }
+                    // onChange={(e) => {
+                    //   if (!watch("isSame")) {
+                    //     setValue("whatsapp", e.target.value);
+                    //   }
+                    // }}
                     // disabled={disabled}
                     className="bg-white xl:pl-8 pl-6 xl:p-4 p-2 rounded-xl text-lg w-full"
                     onFocus={(e) => handleFocus(e)}
@@ -248,8 +262,6 @@ const Registration: React.FC = () => {
                 {...register("isSame")}
                 // name="entry.1669604705"
                 className="bg-white xl:p-4 p-2 rounded-xl text-lg pl-[50px]"
-                value="Yes"
-                defaultValue="No"
               />
               <label
                 htmlFor="isSame"
