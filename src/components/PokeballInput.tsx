@@ -32,7 +32,7 @@ const PokeballInput: React.FC<PokeballInputProps> = ({
     <div className="flex flex-col relative">
       <label
         htmlFor={name}
-        className="text-white xl:text-xl text-base font-bold"
+        className="text-white xl:text-lg text-base font-bold"
       >
         {label}
       </label>
@@ -51,7 +51,7 @@ const PokeballInput: React.FC<PokeballInputProps> = ({
           // value={value}
           // onChange={onChange}
           // disabled={disabled}
-          className="bg-white xl:pl-8 pl-6 xl:p-4 p-2 rounded-xl text-lg w-full"
+          className="bg-white xl:pl-8 pl-6  p-2 rounded-xl text-lg w-full"
           onFocus={(e) => handleFocus(e)}
           onBlur={handleBlur}
         />

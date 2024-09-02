@@ -61,6 +61,7 @@ const Registration: React.FC = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
     watch,
     setValue,
@@ -95,7 +96,9 @@ const Registration: React.FC = () => {
 
       if (response.ok) {
         console.log("Form submitted successfully!");
+        document.getElementById("registrationForm")?.reset();
       } else {
+        document.getElementById("registrationForm")?.reset();
         console.error(
           "Error submitting form:",
           response.status,
@@ -103,6 +106,7 @@ const Registration: React.FC = () => {
         );
       }
     } catch (error) {
+      document.getElementById("registrationForm")?.reset();
       console.error("Error submitting form:", error);
     }
   };
@@ -110,14 +114,16 @@ const Registration: React.FC = () => {
     <div className="w-full min-h-screen flex relative">
       {isSubmitted && (
         <div
-          className="fixed z-40 top-0 left-0 w-full h-full bg-black bg-opacity-50 transition-all flex justify-center items-center"
+          className="fixed z-40 top-0 left-0 w-full h-full bg-black gap-4 cursor-default bg-opacity-50 transition-all flex justify-center items-center"
           onClick={() => setIsSubmitted(false)}
         >
+          <div className="pokeball"></div>
           <div className="bg-white p-4 rounded-xl text-xl montserrat font-bold">
             Registration Successful!
           </div>
         </div>
       )}
+
       <img
         src={ash}
         alt=""
@@ -146,7 +152,7 @@ const Registration: React.FC = () => {
             </span>
             keDev
           </div>
-          <div>
+          <div className="xl:mt-[4rem] mt-[3rem]">
             <div className="bowlby text-blue xl:text-3xl xl:m-0 mt-4 text-xl">
               Sep {date} 2024, 10 am Onwards
             </div>
@@ -189,6 +195,7 @@ const Registration: React.FC = () => {
           <form
             className="flex flex-col xl:px-7 md:pl-14 xl:pl-0 xl:gap-3 gap-2 montserrat z-20 w-4/5"
             onSubmit={handleSubmit(submitForm)}
+            id="registrationForm"
           >
             <div className="flex flex-col xl:flex-row xl:gap-8 gap-2 w-full">
               <PokeballInput
@@ -214,7 +221,7 @@ const Registration: React.FC = () => {
 
             <PokeballInput
               name="email"
-              label="Email (Personal)"
+              label="Kiit Email"
               register={register}
               errors={errors}
               focusedField={focusedField}
@@ -278,7 +285,7 @@ const Registration: React.FC = () => {
                     //   }
                     // }}
                     // disabled={disabled}
-                    className="bg-white xl:pl-8 pl-6 xl:p-4 p-2 rounded-xl text-lg w-full"
+                    className="bg-white xl:pl-8 pl-6  p-2 rounded-xl text-lg w-full"
                     onFocus={(e) => handleFocus(e)}
                     onBlur={handleBlur}
                   />
@@ -301,7 +308,7 @@ const Registration: React.FC = () => {
               />
               <label
                 htmlFor="isSame"
-                className="text-white xl:text-xl text-sm font-bold ml-5"
+                className="text-white xl:text-lg text-sm font-bold ml-5"
               >
                 Phone Number is same as Whatsapp Number?
               </label>
