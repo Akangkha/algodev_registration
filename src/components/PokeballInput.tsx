@@ -24,7 +24,7 @@ const PokeballInput: React.FC<PokeballInputProps> = ({
   handleFocus,
   handleBlur,
   type,
-  // value,
+  value,
   // onChange,
   // disabled,
 }) => {
@@ -50,7 +50,7 @@ const PokeballInput: React.FC<PokeballInputProps> = ({
           type={type}
           id={name}
           {...register(name)}
-          // value={value}
+          value={value}
           // onChange={onChange}
           // disabled={disabled}
           className="bg-white xl:pl-8 pl-6  p-2 rounded-xl text-lg w-full"

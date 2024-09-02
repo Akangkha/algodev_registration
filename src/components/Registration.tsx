@@ -5,7 +5,7 @@ import ash from "../assets/ash.svg";
 // import pikachu from "../assets/pikachu.svg";
 import snorlax from "../assets/snorlax.svg";
 import pokeball from "../assets/pokeball.svg";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PokeballInput from "./PokeballInput";
 
 export interface formData {
@@ -24,7 +24,8 @@ const schema: ZodType<formData> = z.object({
     .min(1, { message: "First name is required" }),
   email: z
     .string({ message: "Email is required" })
-    .email({ message: "Enter valid email" }),
+    .email({ message: "Enter valid KIIT email" })
+    .includes("@kiit.ac.in", { message: "Enter valid KIIT email" }),
   branch: z
     .string()
     .max(100, { message: "Branch name must be less than 100 characters" })
@@ -40,12 +41,31 @@ const schema: ZodType<formData> = z.object({
 });
 
 const Registration: React.FC = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    watch,
+    reset,
+  } = useForm<formData>({ resolver: zodResolver(schema), mode: "onChange" });
+
   const date = "XX";
   const campus = "X";
 
   const [, setPhoneValue] = useState("");
   const [focusedField, setFocusedField] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [rollNumber, setRollNumber] = useState("");
+
+  useEffect(() => {
+    const email = watch("email");
+    if (email) {
+      const match = email.match(/^(\d+)@kiit\.ac\.in$/);
+      if (match) {
+        setRollNumber(match[1]);
+      }
+    }
+  }, [watch("email")]);
 
   const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
     setFocusedField(e.target.id);
@@ -54,20 +74,13 @@ const Registration: React.FC = () => {
   const handleBlur = () => {
     setFocusedField("");
   };
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset,
-  } = useForm<formData>({ resolver: zodResolver(schema), mode: "onChange" });
-
   const submitForm = async (data: formData) => {
     try {
       console.log("Form data:", data);
+      data.rollNumber = rollNumber;
 
       const params = new URLSearchParams();
       params.append("entry.1652795774", String(data.name));
-
       params.append("emailAddress", String(data.email));
       params.append("entry.1996017194", String(data.branch));
       params.append("entry.1564484452", String(data.year));
@@ -199,7 +212,7 @@ const Registration: React.FC = () => {
               <PokeballInput
                 type="text"
                 name="name"
-                label="First Name"
+                label="Full Name"
                 register={register}
                 errors={errors}
                 focusedField={focusedField}
@@ -211,7 +224,7 @@ const Registration: React.FC = () => {
             <PokeballInput
               type="text"
               name="email"
-              label="Kiit Email"
+              label="KIIT Email"
               register={register}
               errors={errors}
               focusedField={focusedField}
@@ -247,46 +260,54 @@ const Registration: React.FC = () => {
                 >
                   Year
                 </label>
-                <div className="flex items-center text-xl font-bold py-2 justify-between">
-                  <div className="flex flex-row gap-4">
+                <div className="flex text-center items-center text-xl font-bold py-2 justify-between">
+                  <div className="flex flex-row w-1/4">
                     <input
                       type="radio"
                       id="1"
                       {...register("year")}
                       value={1}
-                      className="bg-white xl:pl-8 pl-6 p-2 rounded-xl text-lg w-full"
+                      className="bg-white w-1/2 xl:pl-8 pl-6 p-2 rounded-xl text-lg"
                     />
-                    <label htmlFor="1">1</label>
+                    <label htmlFor="1" className=" w-1/2">
+                      1
+                    </label>
                   </div>
-                  <div className="flex flex-row gap-4">
+                  <div className="flex flex-row w-1/4">
                     <input
                       type="radio"
                       id="2"
                       {...register("year")}
                       value={2}
-                      className="bg-white xl:pl-8 pl-6 p-2 rounded-xl text-lg w-full"
+                      className="bg-white w-1/2 xl:pl-8 pl-6 p-2 rounded-xl text-lg"
                     />
-                    <label htmlFor="1">2</label>
+                    <label htmlFor="2" className=" w-1/2">
+                      2
+                    </label>
                   </div>
-                  <div className="flex flex-row gap-4">
+                  <div className="flex flex-row w-1/4">
                     <input
                       type="radio"
                       id="3"
                       {...register("year")}
                       value={3}
-                      className="bg-white xl:pl-8 pl-6 p-2 rounded-xl text-lg w-full"
+                      className="bg-white w-1/2 xl:pl-8 pl-6 p-2 rounded-xl text-lg"
                     />
-                    <label htmlFor="1">3</label>
+                    <label htmlFor="3" className=" w-1/2">
+                      3
+                    </label>
                   </div>
-                  <div className="flex flex-row gap-4">
+                  <div className="flex flex-row w-1/4">
                     <input
                       type="radio"
                       id="4"
                       {...register("year")}
                       value={4}
-                      className="bg-white xl:pl-8 pl-6 p-2 rounded-xl text-lg w-full"
+                      className="bg-white w-1/2 xl:pl-8 pl-6 p-2 rounded-xl text-lg"
                     />
-                    <label htmlFor="1">4</label>
+                    <label htmlFor="4" className=" w-1/2">
+                      4
+                    </label>
                   </div>
                 </div>
                 {errors["year"] && (
@@ -297,11 +318,11 @@ const Registration: React.FC = () => {
               </div>
             </div>
 
-            <div className="flex flex-col xl:flex-row md:gap-6 xl:gap-8 gap-2 w-full xl:justify-between">
+            <div className="flex text-nowrap flex-col xl:flex-row md:gap-6 xl:gap-8 gap-2 w-full xl:justify-between">
               <PokeballInput
                 type="tel"
                 name="phone"
-                label="Phone"
+                label="Phone No. (Whatsapp)"
                 register={register}
                 errors={errors}
                 focusedField={focusedField}
@@ -318,7 +339,8 @@ const Registration: React.FC = () => {
                 focusedField={focusedField}
                 handleFocus={handleFocus}
                 handleBlur={handleBlur}
-                onChange={(e) => setPhoneValue(e.target.value)}
+                value={rollNumber}
+                onChange={(e) => setRollNumber(e.target.value)}
               />
             </div>
 
