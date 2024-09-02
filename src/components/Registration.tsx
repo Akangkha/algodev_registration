@@ -46,6 +46,7 @@ const schema: ZodType<formData> = z.object({
 const Registration: React.FC = () => {
   const [phoneValue, setPhoneValue] = useState("");
   const [focusedField, setFocusedField] = useState("");
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
     setFocusedField(e.target.id);
@@ -87,8 +88,8 @@ const Registration: React.FC = () => {
       const response = await fetch(`${googleFormUrl}?${params.toString()}`, {
         method: "POST",
         mode: "no-cors",
-      });
-      console.log(params.toString());
+      }).then(() => setIsSubmitted(true));
+
       if (response.ok) {
         console.log("Form submitted successfully!");
       } else {
@@ -104,6 +105,16 @@ const Registration: React.FC = () => {
   };
   return (
     <div className="w-full h-screen flex relative">
+      {isSubmitted && (
+        <div
+          className="fixed z-40 top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center"
+          onClick={() => setIsSubmitted(false)}
+        >
+          <div className="bg-white p-4 rounded-xl text-lg">
+            Form submitted successfully!
+          </div>
+        </div>
+      )}
       <img
         src={ash}
         alt=""
