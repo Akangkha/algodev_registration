@@ -117,8 +117,7 @@ const Registration: React.FC = () => {
                 className="absolute xl:top-[40px] top-[23px] xl:left-0 -left-[3px] pokeballText"
               />
             </span>
-            keM
-            <span className="relative">L</span>
+            keDev
           </div>
           <div>
             <div className="bowlby text-blue xl:text-3xl xl:m-0 mt-4 text-xl">
@@ -186,7 +185,7 @@ const Registration: React.FC = () => {
                 onChange={(e) => setPhoneValue(e.target.value)}
               />
 
-              <PokeballInput
+              {/* <PokeballInput
                 name="whatsapp"
                 label="Whatsapp"
                 register={register}
@@ -200,7 +199,46 @@ const Registration: React.FC = () => {
                     setValue("whatsapp", e.target.value);
                   }
                 }}
-              />
+              /> */}
+              <div className="flex flex-col relative">
+                <label
+                  htmlFor="whatsapp"
+                  className="text-white xl:text-xl text-base font-bold"
+                >
+                  Whatsapp
+                </label>
+                <div className="flex items-center">
+                  <img
+                    src={pokeball}
+                    alt=""
+                    className={`md:size-12 xl:size-16 size-11 absolute md:-left-7 -left-5 transition-all ${
+                      focusedField === "whatsapp" ? "rotate-[-26deg]" : ""
+                    }`}
+                  />
+                  <input
+                    type="text"
+                    id="whatsapp"
+                    {...register("whatsapp")}
+                    value={
+                      watch("isSame") ? phoneValue : watch("whatsapp") || ""
+                    }
+                    onChange={(e) => {
+                      if (!watch("isSame")) {
+                        setValue("whatsapp", e.target.value);
+                      }
+                    }}
+                    // disabled={disabled}
+                    className="bg-white xl:pl-8 pl-6 xl:p-4 p-2 rounded-xl text-lg w-full"
+                    onFocus={(e) => handleFocus(e)}
+                    onBlur={handleBlur}
+                  />
+                </div>
+                {errors.whatsapp && (
+                  <span className="text-yellow mx-2 px-2 text-sm font-bold">
+                    * {errors.whatsapp.message}
+                  </span>
+                )}
+              </div>
             </div>
 
             <div className="mt-2 z-20">
@@ -211,6 +249,7 @@ const Registration: React.FC = () => {
                 // name="entry.1669604705"
                 className="bg-white xl:p-4 p-2 rounded-xl text-lg pl-[50px]"
                 value="Yes"
+                defaultValue="No"
               />
               <label
                 htmlFor="isSame"

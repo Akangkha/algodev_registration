@@ -26,6 +26,7 @@ const PokeballInput: React.FC<PokeballInputProps> = ({
   onChange,
   disabled,
 }) => {
+  // const {register,} = useForm();
   console.log(register);
   return (
     <div className="flex flex-col relative">
@@ -47,9 +48,9 @@ const PokeballInput: React.FC<PokeballInputProps> = ({
           type="text"
           id={name}
           {...register(name)}
-          value={value}
-          onChange={onChange}
-          disabled={disabled}
+          // value={value}
+          // onChange={onChange}
+          // disabled={disabled}
           className="bg-white xl:pl-8 pl-6 xl:p-4 p-2 rounded-xl text-lg w-full"
           onFocus={(e) => handleFocus(e)}
           onBlur={handleBlur}
