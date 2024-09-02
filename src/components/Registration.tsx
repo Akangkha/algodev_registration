@@ -5,28 +5,23 @@ import ash from "../assets/ash.svg";
 // import pikachu from "../assets/pikachu.svg";
 import snorlax from "../assets/snorlax.svg";
 import pokeball from "../assets/pokeball.svg";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import PokeballInput from "./PokeballInput";
 
 export interface formData {
-  firstName: string;
-  lastName: string;
+  name: string;
+
   branch: string;
   year: string;
   phone: string;
+  rollNumber: string;
   email: string;
-  whatsapp: string;
-  isSame?: boolean;
 }
 const schema: ZodType<formData> = z.object({
-  firstName: z
+  name: z
     .string({ message: "First name is required" })
     .max(30, { message: "First name must be less than 30 characters" })
     .min(1, { message: "First name is required" }),
-  lastName: z
-    .string({ message: "Last name is required" })
-    .max(30, { message: "Last name must be less than 30 characters" })
-    .min(1, { message: "Last name is required" }),
   email: z
     .string({ message: "Email is required" })
     .email({ message: "Enter valid email" }),
@@ -41,13 +36,7 @@ const schema: ZodType<formData> = z.object({
       /^\s*(?:\+?(\d{1,3}))?([-. (]*(\d{3})[-. )]*)?((\d{3})[-. ]*(\d{2,4})(?:[-.x ]*(\d+))?)\s*$/gm,
       { message: "Enter valid phone number" }
     ),
-  whatsapp: z
-    .string({ message: "Whatsapp number is required" })
-    .regex(
-      /^\s*(?:\+?(\d{1,3}))?([-. (]*(\d{3})[-. )]*)?((\d{3})[-. ]*(\d{2,4})(?:[-.x ]*(\d+))?)\s*$/gm,
-      { message: "Enter valid Whatsapp number" }
-    ),
-  isSame: z.boolean().default(false),
+  rollNumber: z.string(),
 });
 
 const Registration: React.FC = () => {
@@ -69,30 +58,21 @@ const Registration: React.FC = () => {
     register,
     handleSubmit,
     formState: { errors },
-    watch,
-    setValue,
+    reset,
   } = useForm<formData>({ resolver: zodResolver(schema), mode: "onChange" });
-  const isSame = watch("isSame");
-  const phone = watch("phone");
-
-  useEffect(() => {
-    if (isSame) {
-      setValue("whatsapp", phone);
-    }
-  }, [isSame, phone, setValue]);
 
   const submitForm = async (data: formData) => {
     try {
       console.log("Form data:", data);
 
       const params = new URLSearchParams();
-      params.append("entry.521128088", String(data.firstName));
-      params.append("entry.1938341443", String(data.lastName));
-      params.append("entry.2027588860", String(data.email));
-      params.append("entry.1232986415", String(data.branch));
-      params.append("entry.943693434", String(data.year));
-      params.append("entry.1956564773", String(data.phone));
-      params.append("entry.922164047", String(data.whatsapp));
+      params.append("entry.1652795774", String(data.name));
+
+      params.append("emailAddress", String(data.email));
+      params.append("entry.1996017194", String(data.branch));
+      params.append("entry.1564484452", String(data.year));
+      params.append("entry.1417320345", String(data.phone));
+      params.append("entry.10240631", String(data.rollNumber));
       // params.append("entry.1669604705", data.isSame ? "true" : "false");
 
       const googleFormUrl = import.meta.env.VITE_GOOGLE_FORMS_ENDPOINT;
@@ -104,9 +84,16 @@ const Registration: React.FC = () => {
 
       if (response.ok) {
         console.log("Form submitted successfully!");
-        document.getElementById("registrationForm")?.reset();
+        const form = document.getElementById(
+          "registrationForm"
+        ) as HTMLFormElement;
+        form?.reset();
+        reset();
       } else {
-        document.getElementById("registrationForm")?.reset();
+        const form = document.getElementById(
+          "registrationForm"
+        ) as HTMLFormElement;
+        form?.reset();
         console.error(
           "Error submitting form:",
           response.status,
@@ -114,7 +101,10 @@ const Registration: React.FC = () => {
         );
       }
     } catch (error) {
-      document.getElementById("registrationForm")?.reset();
+      const form = document.getElementById(
+        "registrationForm"
+      ) as HTMLFormElement;
+      form?.reset();
       console.error("Error submitting form:", error);
     }
   };
@@ -208,19 +198,8 @@ const Registration: React.FC = () => {
             <div className="flex flex-col xl:flex-row xl:gap-8 gap-2 w-full xl:justify-between">
               <PokeballInput
                 type="text"
-                name="firstName"
+                name="name"
                 label="First Name"
-                register={register}
-                errors={errors}
-                focusedField={focusedField}
-                handleFocus={handleFocus}
-                handleBlur={handleBlur}
-              />
-
-              <PokeballInput
-                type="text"
-                name="lastName"
-                label="Last Name"
                 register={register}
                 errors={errors}
                 focusedField={focusedField}
@@ -330,8 +309,20 @@ const Registration: React.FC = () => {
                 handleBlur={handleBlur}
                 onChange={(e) => setPhoneValue(e.target.value)}
               />
+              <PokeballInput
+                type="number"
+                name="rollNumber"
+                label="Roll Number"
+                register={register}
+                errors={errors}
+                focusedField={focusedField}
+                handleFocus={handleFocus}
+                handleBlur={handleBlur}
+                onChange={(e) => setPhoneValue(e.target.value)}
+              />
+            </div>
 
-              {/* <PokeballInput
+            {/* <PokeballInput
                 name="whatsapp"
                 label="Whatsapp"
                 register={register}
@@ -346,68 +337,6 @@ const Registration: React.FC = () => {
                   }
                 }}
               /> */}
-              <div className="flex flex-col relative w-full">
-                <label
-                  htmlFor="whatsapp"
-                  className="text-white xl:text-xl text-base font-bold"
-                >
-                  Whatsapp
-                </label>
-                <div className="flex items-center">
-                  <img
-                    src={pokeball}
-                    alt=""
-                    className={`md:size-12 xl:size-16 size-11 absolute md:-left-7 -left-5 transition-all ${
-                      focusedField === "whatsapp" ? "rotate-[-26deg]" : ""
-                    }`}
-                  />
-                  <input
-                    type="tel"
-                    id="whatsapp"
-                    {...register("whatsapp")}
-                    disabled={isSame}
-                    // value={
-                    //   watch("isSame") ? phoneValue : watch("whatsapp") || ""
-                    // }
-                    // onChange={(e) => {
-                    //   if (!watch("isSame")) {
-                    //     setValue("whatsapp", e.target.value);
-                    //   }
-                    // }}
-                    // disabled={disabled}
-                    className="bg-white xl:pl-8 pl-6  p-2 rounded-xl text-lg w-full"
-                    onFocus={(e) => handleFocus(e)}
-                    onBlur={handleBlur}
-                  />
-                </div>
-                {errors.whatsapp && (
-                  <span className="text-yellow mx-2 px-2 text-sm font-bold">
-                    * {errors.whatsapp.message}
-                  </span>
-                )}
-              </div>
-            </div>
-
-            <div className="mt-2 z-20">
-              <input
-                type="checkbox"
-                id="isSame"
-                {...register("isSame")}
-                // name="entry.1669604705"
-                className="bg-white xl:p-4 p-2 rounded-xl text-lg pl-[50px]"
-              />
-              <label
-                htmlFor="isSame"
-                className="text-white xl:text-lg text-sm font-bold ml-5"
-              >
-                Phone Number is same as Whatsapp Number?
-              </label>
-              {errors.isSame && (
-                <span className="text-yellow mx-2 px-2 text-sm font-bold">
-                  * {errors.isSame.message}
-                </span>
-              )}
-            </div>
 
             <button
               type="submit"
