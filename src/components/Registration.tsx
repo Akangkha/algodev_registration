@@ -104,7 +104,7 @@ const Registration: React.FC = () => {
     }
   };
   return (
-    <div className="w-full h-screen flex relative">
+    <div className="w-full min-h-screen flex relative">
       {isSubmitted && (
         <div
           className="fixed z-40 top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center"
@@ -157,6 +157,28 @@ const Registration: React.FC = () => {
         </div>
       </div>
       <div className="md:w-1/2 w-full bg-blue xl:p-12 p-4">
+        <div className="text-center md:hidden">
+          <div className="solid mt-6 text-yellow text-7xl flex flex-nowrap m-auto w-fit">
+            P
+            <span className="relative">
+              o
+              <img
+                src={pokeball}
+                alt=""
+                className="absolute xl:top-[40px] top-[15px] xl:left-0 -left-[3px] pokeballText"
+              />
+            </span>
+            keDev
+          </div>
+          <div>
+            <div className="bowlby text-yellow mt-4 text-lg">
+              Sep XX 2024, 10 am Onwards
+            </div>
+            <div className="bowlby text-yellow text-lg">
+              Campus X Auditorium
+            </div>
+          </div>
+        </div>
         <h1 className="text-white solid xl:text-7xl text-4xl m-auto w-fit xl:my-12 my-10 text-center">
           Register Now
         </h1>
@@ -291,7 +313,7 @@ const Registration: React.FC = () => {
               type="submit"
               className="hover:scale-105 active:scale-95 transition-all mt-5 bg-yellow w-fit m-auto text-blue montserrat font-bold text-2xl py-2 px-8 rounded-xl flex gap-4 justify-center items-center"
             >
-              Next <img src={snorlax} alt="" />
+              Register <img src={snorlax} alt="" />
             </button>
           </form>
         </div>
