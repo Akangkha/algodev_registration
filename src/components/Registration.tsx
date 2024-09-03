@@ -170,7 +170,7 @@ const Registration: React.FC = () => {
           xxx
         </div>
       </div>
-      <div className="md:w-1/2 w-full bg-blue xl:p-12 p-4">
+      <div className="md:w-1/2 w-full bg-blue xl:p-12 p-4 min-h-screen flex flex-col justify-center items-center">
         <div className="text-center md:hidden flex flex-col">
          <img src={titlemb} alt="" className="w-[300px] m-auto"/>
           <div>
