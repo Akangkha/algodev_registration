@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { z, ZodType } from "zod";
 import ash from "../assets/ash.svg";
 // import pikachu from "../assets/pikachu.svg";
+import titlemb from "../assets/poketitle.png"
 import snorlax from "../assets/snorlax.svg";
 import pokeball from "../assets/pokeball.svg";
 import { useEffect, useState } from "react";
@@ -170,19 +171,8 @@ const Registration: React.FC = () => {
         </div>
       </div>
       <div className="md:w-1/2 w-full bg-blue xl:p-12 p-4">
-        <div className="text-center md:hidden flex flex-col gap-4">
-          <div className="solid mt-6 text-yellow text-7xl flex flex-nowrap m-auto w-fit">
-            P
-            <span className="relative">
-              o
-              <img
-                src={pokeball}
-                alt=""
-                className="absolute top-[42px] -left-[3px] pokeballText"
-              />
-            </span>
-            keDev
-          </div>
+        <div className="text-center md:hidden flex flex-col">
+         <img src={titlemb} alt="" className="w-[300px] m-auto"/>
           <div>
             <div className="bowlby text-yellow mt-4 text-lg">
               Sep {date} 2024, 10 am Onwards
@@ -190,7 +180,7 @@ const Registration: React.FC = () => {
             <div className="bowlby text-yellow text-lg">Campus {location}</div>
           </div>
         </div>
-        <h1 className="text-white solid xl:text-7xl text-4xl m-auto w-fit xl:my-12 my-10 text-center">
+        <h1 className="text-white solid xl:text-6xl text-4xl m-auto w-fit xl:my-12 my-10 text-center">
           Register Now
         </h1>
         <div className="flex flex-col justify-center items-center h-max">
